@@ -1,3 +1,8 @@
+/**
+ * Adds a Flattr-button to Leaflet based maps.
+ * License: CC0 (Creative Commons Zero), see http://creativecommons.org/publicdomain/zero/1.0/
+ * Project page: https://github.com/buche/leaflet-flattrbutton
+ **/
 L.FlattrButton = L.Control.extend({
 
 	options: {
