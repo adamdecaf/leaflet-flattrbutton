@@ -2,10 +2,11 @@ L.FlattrButton = L.Control.extend({
 
 	options: {
 		position: "topright",
-		buttonType: 'static', // available: 'static', 'widget'
+		buttonType: 'static', // available: 'static', 'widget', 'counterlarge', 'countercompact'
 		flattrType: 'thing',
 		flattrId: null,
-		flattrUser: null,
+		flattrUrl: null,
+		counterDelay: 500 // delay for initializing counter function (in ms) when using 'countercompact' or 'counterlarge'
 	},
 
 	initialize: function(options) {
@@ -17,6 +18,7 @@ L.FlattrButton = L.Control.extend({
 
 	onAdd: function(map) {
 		this._map = map;
+		this._initCounterFunction();
 		return this._container;
 	},
 
@@ -39,6 +41,10 @@ L.FlattrButton = L.Control.extend({
 				break;
 			case 'widget':
 				txt = this._createFlattrButtonWidget();
+				break;
+			case 'counterlarge':
+			case 'countercompact':
+				txt = this._createFlattrButtonCounter();
 				break;
 			default:
 				txt = 'Error: unsupported buttonType';
@@ -68,6 +74,37 @@ L.FlattrButton = L.Control.extend({
 		var txt = template.replace('{flattrtype}', this.options.flattrType)
 						.replace('{flattrid}', this.options.flattrId);
 		return txt;
+	},
+
+	_counterFunction: function() {
+        var s = document.createElement('script');
+		var t = document.getElementsByTagName('head')[0];
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+        t.appendChild(s);
+		this._script = s;
+	},
+
+	_initCounterFunction: function() {
+		if (this.options.buttonType == 'countercompact' || this.options.buttonType == 'counterlarge') {
+			_flattrButtonInstance = this; // has to be global
+			window.setTimeout(function() {
+				_flattrButtonInstance._counterFunction();
+				delete _flattrButtonInstance;
+			}, this.options.counterDelay);
+		}
+    },
+
+	_createFlattrButtonCounter: function() {
+		if (this.options.flattrUrl == null) {
+			return 'Error in flattrUrl';
+		}
+		var txt = '<a class="FlattrButton" style="display:none;" '
+				+ (this.options.buttonType == 'countercompact' ? 'rev="flattr;button:compact;" ' : '')
+				+ 'href="' + this.options.flattrUrl + '"></a>';
+		return txt;
 	}
+
 });
 L.flattrButton = function(options) { return new L.FlattrButton(options); };

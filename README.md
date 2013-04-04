@@ -1,7 +1,7 @@
 leaflet-flattrbutton
 ====================
 
-Adds a Flattr-Button to Leaflet based maps.
+Adds a Flattr-button to Leaflet based maps.
 Feel free to flattr me if you like it: [![alttext](http://api.flattr.com/button/flattr-badge-large.png)](http://flattr.com/thing/1198724/)
 
 ## License
@@ -10,31 +10,42 @@ This code is licensed under [CC0](http://creativecommons.org/publicdomain/zero/1
 
 ## Usage
 
-Add this leaflet control to your map:
+Adding a Flattr button to a map (using my flattr attributes) is just as simple as:
 ```js
 map.addControl(L.flattrButton({ flattrId: '1198724' }));
 ```
+or
+```js
+map.addControl(L.flattrButton({ buttonType: 'countercompact', flattrUrl: 'https://github.com/buche/leaflet-flattrbutton' }));
+```
+
 
 ## Options
 
 Some *options* are available to configure this control ( **default value** is bold):
 
-* *flattrId*: **null** Mandatory! Use the id of your Flattr object.
-* *flattrType*: **thing** Override this when your Flattr object isn't a "thing".
-* *buttonType*: **'static'** or 'widget'. Show a small static button or a huge widget.
+* *buttonType*: **'static'**, 'widget', 'countercompact' or 'counterlarge'. Tell us what kind of button you like to have. Depending on the buttonType other options need to be set.
+* *flattrId*: **null** The id of your Flattr object. Mandatory for buttonType='static'|'widget'.
+* *flattrType*: **thing** Override this when your Flattr object isn't a "thing". Only used for buttonType='static'|'widget'.
+* *flattrUrl*: **null** The URL used when creating your Flattr object. Mandatory for buttonType='countercompact'|'counterlarge'.
+* *counterDelay*: *500* Only used for buttonType='countercompact'|'counterlarge'. Time in milliseconds we'll wait before initializing the button with some javascript functions after adding it to the map. The map needs some time to add the control and we cannot initialize the functions before that.
 * *position*: **'topright'**, 'topleft', 'bottomright' or 'bottomleft'. Default position values for Leaflet controls.
 
-## Example
+## Example: Simple static button
 
-Here are the most important lines for a simple static button. I'm using the Flattr for this project as an example:
+Here are the most important lines for a simple static button. I'm using this Flattr project as an example:
 
-https://flattr.com/thing/1198724/bucheleaflet-flattrbutton-on-GitHub
-* flattrType is 'thing' (=default)
-* flattrId is '1198724' (I have to set this value when creating the control object)
+Flattr project is: https://flattr.com/thing/1198724/bucheleaflet-flattrbutton-on-GitHub
+
+Set these options:
+* buttonType is 'static' (but you can ignore this option because it is the default value)
+* flattrType is 'thing' (but you can ignore this option because it is the default value)
+* flattrId is '1198724' (this is important)
 
 ```html
 <head>
-	<script type="text/javascript" src="leaflet-flattrbutton.js"></script>
+	<script src="leaflet.js"></script>
+	<script src="leaflet-flattrbutton.js"></script>
 </head>
 ```
 
@@ -42,9 +53,33 @@ https://flattr.com/thing/1198724/bucheleaflet-flattrbutton-on-GitHub
 var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 18, attribution: '[insert correct attribution here!]' });
 var map = L.map('map', { center: new L.LatLng(51.5, 10), zoom: 10, layers: [osm] });
-var baseMaps = { "OSM Standard": osm };
-var layerControl = L.control.layers(baseMaps).addTo(map);
 // now create and add the Flattr-button
 map.addControl(L.flattrButton({ flattrId: '1198724' }));
+```
+
+## Example: Compact button with counter
+
+Here are the most important lines for a compact button with counter. I'm using this Flattr project as an example:
+
+Flattr project is: https://flattr.com/thing/1198724/bucheleaflet-flattrbutton-on-GitHub
+Registered website for this Flattr project is: https://github.com/buche/leaflet-flattrbutton (This is called "The web page where you want to place the button" when creating the Flattr project)
+
+Set these options:
+* buttonType is 'countercompact'
+* flattrUrl is 'https://github.com/buche/leaflet-flattrbutton'
+
+```html
+<head>
+	<script src="leaflet.js"></script>
+	<script src="leaflet-flattrbutton.js"></script>
+</head>
+```
+
+```js
+var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 18, attribution: '[insert correct attribution here!]' });
+var map = L.map('map', { center: new L.LatLng(51.5, 10), zoom: 10, layers: [osm] });
+// now create and add the Flattr-button
+map.addControl(L.flattrButton({ buttonType: 'countercompact', flattrUrl: 'https://github.com/buche/leaflet-flattrbutton' }));
 ```
 
