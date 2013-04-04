@@ -28,7 +28,7 @@ Some *options* are available to configure this control ( **default value** is bo
 * *flattrId*: **null** The id of your Flattr object. Mandatory for buttonType='static'|'widget'.
 * *flattrType*: **thing** Override this when your Flattr object isn't a "thing". Only used for buttonType='static'|'widget'.
 * *flattrUrl*: **null** The URL used when creating your Flattr object. Mandatory for buttonType='countercompact'|'counterlarge'.
-* *counterDelay*: *500* Only used for buttonType='countercompact'|'counterlarge'. Time in milliseconds we'll wait before initializing the button with some javascript functions after adding it to the map. The map needs some time to add the control and we cannot initialize the functions before that.
+* *counterDelay*: **500** Only used for buttonType='countercompact'|'counterlarge'. Time in milliseconds we'll wait before initializing the button with some javascript functions after adding it to the map. The map needs some time to add the control and we cannot initialize the functions before that.
 * *position*: **'topright'**, 'topleft', 'bottomright' or 'bottomleft'. Default position values for Leaflet controls.
 
 ## Example: Simple static button
