@@ -82,12 +82,12 @@ L.FlattrButton = L.Control.extend({
 	},
 
 	_counterFunction: function() {
-        var s = document.createElement('script');
+		var s = document.createElement('script');
 		var t = document.getElementsByTagName('head')[0];
-        s.type = 'text/javascript';
-        s.async = true;
-        s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
-        t.appendChild(s);
+		s.type = 'text/javascript';
+		s.async = true;
+		s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto';
+		t.appendChild(s);
 		this._script = s;
 	},
 
