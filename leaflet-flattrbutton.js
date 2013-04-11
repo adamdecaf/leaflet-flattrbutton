@@ -8,6 +8,7 @@ L.FlattrButton = L.Control.extend({
 	options: {
 		position: "topright",
 		buttonType: 'static', // available: 'static', 'widget', 'counterlarge', 'countercompact'
+		buttonContent: 'badge', // available: 'badge', 'icon' or your HTML content
 		flattrUid: null,
 		flattrUrl: null,
 		popout: 1, // show popout when hovering mouse over button (1) or hide it (0)
@@ -58,13 +59,28 @@ L.FlattrButton = L.Control.extend({
 		return txt;
 	},
 
+	_createButtonImageOrText: function() {
+		if (this.options.buttonContent == 'badge') {
+			return '<img src="http://api.flattr.com/button/flattr-badge-large.png" '
+					+ 'width="93" height="20" '
+					+ 'alt="Flattr this" title="Flattr this" border="0" />';
+		}
+		if (this.options.buttonContent == 'icon') {
+			return '<img src="http://api.flattr.com/button/flattr-badge-small.png" '
+					+ 'width="16" height="16" '
+					+ 'alt="Flattr this" title="Flattr this" border="0" />';
+		}
+		return '<span class="flattr-button-content">'
+				+ this.options.buttonContent
+				+ '</span>';
+	},
+
 	_createFlattrButtonStatic: function() {
 		if (this.options.flattrUid == null) {
 			return 'Error in flattrUid';
 		}
 		var template = '<a href="http://flattr.com/thing/{flattruid}" target="_blank"> '
-							+ '<img src="http://api.flattr.com/button/flattr-badge-large.png" '
-							+ 'alt="Flattr this" title="Flattr this" border="0" /></a>';
+							+ this._createButtonImageOrText()
 		var txt = template.replace('{flattruid}', this.options.flattrUid);
 		return txt;
 	},

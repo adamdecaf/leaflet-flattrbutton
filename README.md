@@ -25,6 +25,7 @@ map.addControl(L.flattrButton({ buttonType: 'countercompact', flattrUrl: 'https:
 Some *options* are available to configure this control ( **default value** is bold):
 
 * *buttonType*: **'static'**, 'widget', 'countercompact' or 'counterlarge'. Tell us what kind of button you like to have. Depending on the buttonType other options need to be set.
+* *buttonContent*: **'badge'**, 'icon' or some HTML content. Only used for buttonType='static'. Badge is 93*20 pixels, icon is 16*16px, or set this option value to your own HTML content.
 * *flattrUid*: **null** The userid of your Flattr thing. Mandatory for buttonType='static'|'widget'.
 * *flattrUrl*: **null** The URL used when creating your Flattr thing. Mandatory for buttonType='countercompact'|'counterlarge'.
 * *popout*: **1** or 0, show popout when hovering mouse over counter button (1) or hide it (0).
