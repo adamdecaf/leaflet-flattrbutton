@@ -26,8 +26,8 @@ Some *options* are available to configure this control ( **default value** is bo
 
 * *buttonType*: **'static'**, 'widget', 'countercompact' or 'counterlarge'. Tell us what kind of button you like to have. Depending on the buttonType other options need to be set.
 * *flattrId*: **null** The id of your Flattr object. Mandatory for buttonType='static'|'widget'.
-* *flattrType*: **thing** Override this when your Flattr object isn't a "thing". Only used for buttonType='static'|'widget'.
 * *flattrUrl*: **null** The URL used when creating your Flattr object. Mandatory for buttonType='countercompact'|'counterlarge'.
+* *popout*: **1** or 0, show popout when hovering mouse over counter button (1) or hide it (0).
 * *counterDelay*: **500** Only used for buttonType='countercompact'|'counterlarge'. Time in milliseconds we'll wait before initializing the button with some javascript functions after adding it to the map. The map needs some time to add the control and we cannot initialize the functions before that.
 * *position*: **'topright'**, 'topleft', 'bottomright' or 'bottomleft'. Default position values for Leaflet controls.
 
@@ -39,7 +39,6 @@ Flattr project is: https://flattr.com/thing/1198724/bucheleaflet-flattrbutton-on
 
 Set these options:
 * buttonType is 'static' (but you can ignore this option because it is the default value)
-* flattrType is 'thing' (but you can ignore this option because it is the default value)
 * flattrId is '1198724' (this is important)
 
 ```html
