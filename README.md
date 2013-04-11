@@ -92,13 +92,14 @@ and optionally:
 * *flattrCategory*: The category of the Flattr thing, see [Flattr/categories.txt](https://api.flattr.com/rest/v2/categories.txt) for valid categories
 * *flattrHidden*: If you want to hide the Flattr thing from public listings on flattr.com set this to *true*
 
-**Static button:**
+For a **static button:**
 
 * *buttonContent*: (optional) 'badge', 'icon' or some HTML code
 
-**Button with counter (compact or large):**
+For a **button with counter (compact or large):**
 
-NOT YET IMPLEMENTED
+* *buttonType*: 'countercompact' or 'counterlarge'
+* *popout*: (optional) *false* if you don't want to show a popout when hovering the mouse over the counter button
 
 ## Example: Simple static button
 
@@ -121,6 +122,7 @@ Set these options:
 var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 18, attribution: '[insert correct attribution here!]' });
 var map = L.map('map', { center: new L.LatLng(51.5, 10), zoom: 10, layers: [osm] });
+
 // now create and add the Flattr-button
 map.addControl(L.flattrButton({ flattrId: '1198724' }));
 ```
@@ -147,10 +149,40 @@ Set these options:
 var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 18, attribution: '[insert correct attribution here!]' });
 var map = L.map('map', { center: new L.LatLng(51.5, 10), zoom: 10, layers: [osm] });
+
 // now create and add the Flattr-button
 map.addControl(L.flattrButton({
   buttonType: 'countercompact',
   flattrUrl: 'https://github.com/buche/leaflet-flattrbutton'
+}));
+```
+
+## Example: Compact button with counter for a not yet existing Flattr thing (autosubmit) and without popout
+
+```html
+<head>
+	<script src="leaflet.js"></script>
+	<script src="leaflet-flattrbutton.js"></script>
+</head>
+```
+
+```js
+var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 18, attribution: '[insert correct attribution here!]' });
+var map = L.map('map', { center: new L.LatLng(51.5, 10), zoom: 10, layers: [osm] });
+
+// now create and add the Flattr-button
+map.addControl(L.flattrButton({
+  autosubmit: true,
+  buttonType: 'countercompact',
+  flattrUid: 'kranich',
+  flattrUrl: 'https://github.com/buche/leaflet-flattrbutton',
+  flattrTitle: 'Leaflet-Flattr-Buttons',
+  flattrDesc: 'Bring Flattr to Leaflet maps',
+  flattrLang: 'en_GB',
+  flattrTags: 'OpenStreetMap,OSM,Leaflet,Flattr',
+  flattrCategory: 'software',
+  popout: false
 }));
 ```
 

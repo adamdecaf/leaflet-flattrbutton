@@ -119,11 +119,24 @@ L.FlattrButton = L.Control.extend({
 	_counterFunction: function() {
 		var popout = this.options.popout === false ? '&popout=0' : '';
 		var button = this.options.buttonType == 'countercompact' ? '&button=compact' : '';
+		var params = '';
+
+		if (this.options.autosubmit) {
+			params += this.options.flattrUid !== null ? '&user_id=' + encodeURIComponent(this.options.flattrUid) : '';
+			params += this.options.flattrUrl !== null ? '&url=' + encodeURIComponent(this.options.flattrUrl) : '';
+			params += this.options.flattrTitle !== null ? '&title=' + encodeURIComponent(this.options.flattrTitle) : '';
+			params += this.options.flattrDesc !== null ? '&description=' + encodeURIComponent(this.options.flattrDesc) : '';
+			params += this.options.flattrLang !== null ? '&language=' + encodeURIComponent(this.options.flattrLang) : '';
+			params += this.options.flattrTags !== null ? '&tags=' + encodeURIComponent(this.options.flattrTags) : '';
+			params += this.options.flattrCategory !== null ? '&category=' + encodeURIComponent(this.options.flattrCategory) : '';
+			params += this.options.flattrHidden === true ? '&hidden=1' : '';
+		}
+
 		var s = document.createElement('script');
 		var t = document.getElementsByTagName('head')[0];
 		s.type = 'text/javascript';
 		s.async = true;
-		s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto' + popout + button;
+		s.src = 'http://api.flattr.com/js/0.6/load.js?mode=auto' + popout + button + params;
 		t.appendChild(s);
 		this._script = s;
 	},
@@ -141,6 +154,9 @@ L.FlattrButton = L.Control.extend({
 	_createFlattrButtonCounter: function() {
 		if (this.options.flattrUrl == null) {
 			return 'Error in flattrUrl';
+		}
+		if (this.options.autosubmit && this.options.flattrUid == null) {
+			return 'Error in flattrUid';
 		}
 		var txt = '<a class="FlattrButton" style="display:none;" href="' + this.options.flattrUrl + '"></a>';
 		return txt;
