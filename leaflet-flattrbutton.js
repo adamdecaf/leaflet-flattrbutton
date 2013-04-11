@@ -6,12 +6,20 @@
 L.FlattrButton = L.Control.extend({
 
 	options: {
-		position: "topright",
+		position: 'topright',
+		autosubmit: false, // false or true
 		buttonType: 'static', // available: 'static', 'widget', 'counterlarge', 'countercompact'
 		buttonContent: 'badge', // available: 'badge', 'icon' or your HTML content
-		flattrUid: null,
-		flattrUrl: null,
-		popout: 1, // show popout when hovering mouse over button (1) or hide it (0)
+		flattrUid: null, // your Flattr user name
+		flattrId: null, // the id of your Flattr thing
+		flattrUrl: null, // the website of your Flattr thing, mandatory for autosubmit
+		flattrTitle: null, // the title of your Flattr thing, optional for autosubmit
+		flattrDesc: null, // the description of your Flattr thing, optional for autosubmit
+		flattrLang: null, // the language of your Flattr thing, optional for autosubmit
+		flattrTags: null, // the tags of your Flattr thing, optional for autosubmit
+		flattrCategory: null, // the category of your Flattr thing
+		flattrHidden: false, // should your Flattr thing be hidden? Optional for autosubmit
+		popout: true, // show popout when hovering mouse over button (true) or hide it (false)
 		counterDelay: 500 // delay for initializing counter function (in ms) when using 'countercompact' or 'counterlarge'
 	},
 
@@ -76,27 +84,40 @@ L.FlattrButton = L.Control.extend({
 	},
 
 	_createFlattrButtonStatic: function() {
-		if (this.options.flattrUid == null) {
-			return 'Error in flattrUid';
+		var txt = '';
+		if (this.options.autosubmit) {
+			if (this.options.flattrUid == null || this.options.flattrUrl == null) {
+				return 'Error in flattrUid or flattrUrl';
+			}
+			txt = 'https://flattr.com/submit/auto?user_id=' + encodeURIComponent(this.options.flattrUid)
+				+ '&url=' + encodeURIComponent(this.options.flattrUrl)
+				+ (this.options.flattrTitle !== null ? '&title=' + encodeURIComponent(this.options.flattrTitle) : '')
+				+ (this.options.flattrDesc !== null ? '&description=' + encodeURIComponent(this.options.flattrDesc) : '')
+				+ (this.options.flattrLang !== null ? '&language=' + encodeURIComponent(this.options.flattrLang) : '')
+				+ (this.options.flattrTags !== null ? '&tags=' + encodeURIComponent(this.options.flattrTags) : '')
+				+ (this.options.flattrHidden === true ? '&hidden=1' : '')
+				+ (this.options.flattrCategory !== null ? '&category=' + encodeURIComponent(this.options.flattrCategory) : '');
+		} else {
+			if (this.options.flattrId == null) {
+				return 'Error in flattrId';
+			}
+			txt = 'http://flattr.com/thing/' + encodeURIComponent(this.options.flattrId);
 		}
-		var template = '<a href="http://flattr.com/thing/{flattruid}" target="_blank"> '
-							+ this._createButtonImageOrText()
-		var txt = template.replace('{flattruid}', this.options.flattrUid);
+		txt = '<a href="' + txt + '" target="_blank">' + this._createButtonImageOrText();
 		return txt;
 	},
 
 	_createFlattrButtonWidget: function() {
-		if (this.options.flattrUid == null) {
-			return 'Error in flattrUid';
+		if (this.options.flattrId == null) {
+			return 'Error in flattrId';
 		}
-		var template = '<iframe src="http://tools.flattr.net/widgets/thing.html?thing={flattruid}" '
-							+ 'width="292" height="420"></iframe>';
-		var txt = template.replace('{flattruid}', this.options.flattrUid);
-		return txt;
+		return '<iframe src="http://tools.flattr.net/widgets/thing.html?'
+				+ 'thing=' + this.options.flattrId + '" '
+				+ 'width="292" height="420"></iframe>';
 	},
 
 	_counterFunction: function() {
-		var popout = this.options.popout == 0 ? '&popout=0' : '';
+		var popout = this.options.popout === false ? '&popout=0' : '';
 		var button = this.options.buttonType == 'countercompact' ? '&button=compact' : '';
 		var s = document.createElement('script');
 		var t = document.getElementsByTagName('head')[0];
