@@ -8,7 +8,7 @@ L.FlattrButton = L.Control.extend({
 	options: {
 		position: "topright",
 		buttonType: 'static', // available: 'static', 'widget', 'counterlarge', 'countercompact'
-		flattrId: null,
+		flattrUid: null,
 		flattrUrl: null,
 		popout: 1, // show popout when hovering mouse over button (1) or hide it (0)
 		counterDelay: 500 // delay for initializing counter function (in ms) when using 'countercompact' or 'counterlarge'
@@ -59,23 +59,23 @@ L.FlattrButton = L.Control.extend({
 	},
 
 	_createFlattrButtonStatic: function() {
-		if (this.options.flattrId == null) {
-			return 'Error in flattrId';
+		if (this.options.flattrUid == null) {
+			return 'Error in flattrUid';
 		}
-		var template = '<a href="http://flattr.com/thing/{flattrid}" target="_blank"> '
+		var template = '<a href="http://flattr.com/thing/{flattruid}" target="_blank"> '
 							+ '<img src="http://api.flattr.com/button/flattr-badge-large.png" '
 							+ 'alt="Flattr this" title="Flattr this" border="0" /></a>';
-		var txt = template.replace('{flattrid}', this.options.flattrId);
+		var txt = template.replace('{flattruid}', this.options.flattrUid);
 		return txt;
 	},
 
 	_createFlattrButtonWidget: function() {
-		if (this.options.flattrId == null) {
-			return 'Error in flattrId';
+		if (this.options.flattrUid == null) {
+			return 'Error in flattrUid';
 		}
-		var template = '<iframe src="http://tools.flattr.net/widgets/thing.html?thing={flattrid}" '
+		var template = '<iframe src="http://tools.flattr.net/widgets/thing.html?thing={flattruid}" '
 							+ 'width="292" height="420"></iframe>';
-		var txt = template.replace('{flattrid}', this.options.flattrId);
+		var txt = template.replace('{flattruid}', this.options.flattrUid);
 		return txt;
 	},
 
