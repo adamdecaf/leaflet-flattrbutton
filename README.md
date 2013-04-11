@@ -11,18 +11,27 @@ This code is licensed under [CC0](http://creativecommons.org/publicdomain/zero/1
 
 ## Usage
 
-Adding a Flattr button to a map (using my flattr attributes) is just as simple as:
+Adding a Flattr button to a map is just as simple as:
 ```js
 map.addControl(L.flattrButton({ flattrId: '1198724' }));
 ```
 or
 ```js
-map.addControl(L.flattrButton({ buttonType: 'countercompact', flattrUrl: 'https://github.com/buche/leaflet-flattrbutton' }));
+map.addControl(L.flattrButton({
+  buttonType: 'countercompact',
+  flattrUrl: 'https://github.com/buche/leaflet-flattrbutton'
+}));
 ```
 or
 ```js
-map.addControl(L.flattrButton({ autosubmit: true, flattrUid: 'kranich', flattrUrl: 'https://github.com/buche/leaflet-flattrbutton' }));
+map.addControl(L.flattrButton({
+  autosubmit: true,
+  flattrUid: 'kranich',
+  flattrUrl: 'https://github.com/buche/leaflet-flattrbutton'
+}));
 ```
+
+Note: I've used the [Flattr thing for this code](http://flattr.com/thing/1198724/) for the examples.
 
 ## Options
 
@@ -38,15 +47,15 @@ Some *options* are available to configure this control ( **default value** is bo
 * *flattrDesc*: **null** The description of your Flattr thing.
 * *flattrLang*: **null** The language of your Flattr thing, see [Flattr/languages.txt](https://api.flattr.com/rest/v2/languages.txt) for available languages.
 * *flattrTags*: **null** The tags of your Flattr thing, multiple tags are separated with `,` (comma).
-* *flattrCategory*: **null** The category of existing Flattr thing, see [Flattr/categories.txt](https://api.flattr.com/rest/v2/categories.txt) for valid categories.
-* *flattrHidden*: **null** If you want to hide your Flattr thing from public listings on flattr.com set this to *true*.
+* *flattrCategory*: **null** The category of your Flattr thing, see [Flattr/categories.txt](https://api.flattr.com/rest/v2/categories.txt) for valid categories.
+* *flattrHidden*: **false** or true. If you want to hide your Flattr thing from public listings on flattr.com set this to *true*.
 * *popout*: **true** or false, show popout when hovering mouse over counter button (true) or hide it (false).
 * *counterDelay*: **500** Only used for buttonType='countercompact'|'counterlarge'. Time in milliseconds we'll wait before initializing the button with some javascript functions after adding it to the map. The map needs some time to add the control and we cannot initialize the functions before that.
 * *position*: **'topright'**, 'topleft', 'bottomright' or 'bottomleft'. Default position values for Leaflet controls.
 
 ## What options do I have to set?
 
-Some options are only used for some kind of buttons. It's a big difference if you use standard or autosubmit features. Here's a short description which options to use.
+Some options are only used for some kind of buttons. It's a big difference if you're using standard or autosubmit features. Here's a short description which options to use.
 
 ### If you already created a Flattr thing
 
@@ -68,17 +77,20 @@ Some options are only used for some kind of buttons. It's a big difference if yo
 
 ### If your Flattr thing isn't created yet
 
-The Flattr thing will be created when the first person flattrs it. This will not work for buttonType *widget*. These options are used for all buttons:
+The Flattr thing will be created when the first person flattrs it (this will not work for buttonType *widget*). These options are used for all buttons:
 
 * *autosubmit*: 'true'
 * *flattrUid*: Your username on Flattr
 * *flattrUrl*: The URL of your Flattr thing
-* *flattrTitle*: (optional) The title of your Flattr thing
-* *flattrDesc*: (optional) The description of your Flattr thing
-* *flattrLang*: (optional) The language of your Flattr thing, see [Flattr/languages.txt](https://api.flattr.com/rest/v2/languages.txt) for available languages
-* *flattrTags*: (optional) The tags of your Flattr thing, multiple tags are separated with `,` (comma)
-* *flattrCategory*: (optional) The category of existing Flattr thing, see [Flattr/categories.txt](https://api.flattr.com/rest/v2/categories.txt) for valid categories
-* *flattrHidden*: (optional) If you want to hide your Flattr thing from public listings on flattr.com set this to *true*
+
+and optionally:
+
+* *flattrTitle*: The title of the Flattr thing
+* *flattrDesc*: The description of the Flattr thing
+* *flattrLang*: The language of the Flattr thing, see [Flattr/languages.txt](https://api.flattr.com/rest/v2/languages.txt) for available languages
+* *flattrTags*: The tags of the Flattr thing, multiple tags are separated with `,` (comma)
+* *flattrCategory*: The category of the Flattr thing, see [Flattr/categories.txt](https://api.flattr.com/rest/v2/categories.txt) for valid categories
+* *flattrHidden*: If you want to hide the Flattr thing from public listings on flattr.com set this to *true*
 
 **Static button:**
 
@@ -136,6 +148,9 @@ var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 18, attribution: '[insert correct attribution here!]' });
 var map = L.map('map', { center: new L.LatLng(51.5, 10), zoom: 10, layers: [osm] });
 // now create and add the Flattr-button
-map.addControl(L.flattrButton({ buttonType: 'countercompact', flattrUrl: 'https://github.com/buche/leaflet-flattrbutton' }));
+map.addControl(L.flattrButton({
+  buttonType: 'countercompact',
+  flattrUrl: 'https://github.com/buche/leaflet-flattrbutton'
+}));
 ```
 
