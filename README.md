@@ -77,7 +77,7 @@ Some options are only used for some kind of buttons. It's a big difference if yo
 
 ### If your Flattr thing isn't created yet
 
-The Flattr thing will be created when the first person flattrs it (this will not work for buttonType *widget*). These options are used for all buttons:
+The Flattr thing will be created when the first person flattrs it (this will not work for buttonType *widget*). These options are mandatory for all buttons:
 
 * *autosubmit*: 'true'
 * *flattrUid*: Your username on Flattr
@@ -127,9 +127,32 @@ var map = L.map('map', { center: new L.LatLng(51.5, 10), zoom: 10, layers: [osm]
 map.addControl(L.flattrButton({ flattrId: '1198724' }));
 ```
 
+## Example: Simple static button with custom HTML code instead of a pre-defined image
+
+Don't you like the pre-defined images? Just insert your own HTML code:
+
+```html
+<head>
+	<script src="leaflet.js"></script>
+	<script src="leaflet-flattrbutton.js"></script>
+</head>
+```
+
+```js
+var osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	maxZoom: 18, attribution: '[insert correct attribution here!]' });
+var map = L.map('map', { center: new L.LatLng(51.5, 10), zoom: 10, layers: [osm] });
+
+// now create and add the Flattr-button
+map.addControl(L.flattrButton({
+  flattrId: '1198724',
+  buttonContent: '<div class="myBigRedBlinkingText">[Click me!]</div>'
+}));
+```
+
 ## Example: Compact button with counter
 
-Here are the most important lines for a compact button with counter. I'm using this Flattr project as an example:
+I'm using this Flattr project as an example:
 
 Flattr project is: https://flattr.com/thing/1198724/bucheleaflet-flattrbutton-on-GitHub
 Registered website for this Flattr project is: https://github.com/buche/leaflet-flattrbutton (This is called "The web page where you want to place the button" when creating the Flattr project)
