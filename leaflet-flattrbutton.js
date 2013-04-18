@@ -143,11 +143,9 @@ L.FlattrButton = L.Control.extend({
 
 	_initCounterFunction: function() {
 		if (this.options.buttonType == 'countercompact' || this.options.buttonType == 'counterlarge') {
-			_flattrButtonInstance = this; // has to be global
-			window.setTimeout(function() {
-				_flattrButtonInstance._counterFunction();
-				delete _flattrButtonInstance;
-			}, this.options.counterDelay);
+			var thisObject = this;
+			var fkt = function() { thisObject._counterFunction(); };
+			window.setTimeout(fkt, this.options.counterDelay);
 		}
     },
 
